@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:gravity="center"
+  android:background="@drawable/list_selector"
+  android:padding="5dp"
+  android:layout_weight="1">
+
+  <LinearLayout android:id="@+id/thumbnail"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="3dip"
+    android:layout_alignParentLeft="true"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_marginRight="5dip"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    >
+
+    <ImageView
+      android:id="@+id/list_image"
+      android:layout_width="30dp"
+      android:layout_height="30dp"
+      android:src="@drawable/img_list_play"
+      android:background="?android:attr/selectableItemBackground"
+      android:scaleType="fitXY" />
+
+  </LinearLayout>
+
+
+
+  <!-- Title Of Song-->
+  <com.teenagerslab.thebeat.CustomFont.TextLatoReg
+    android:id="@+id/songTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignTop="@+id/thumbnail"
+    android:layout_toRightOf="@+id/thumbnail"
+    android:text="Rihanna Love the way lie"
+    android:textColor="#ffffff"
+    android:singleLine="true"
+    android:textSize="15dip"
+    android:textStyle="normal"/>
+
+
+  <!-- Rightend Duration -->
+  <com.teenagerslab.thebeat.CustomFont.TextLatoThin
+    android:id="@+id/duration"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_below="@id/songTitle"
+    android:text="5:45"
+    android:layout_marginRight="5dip"
+    android:textSize="12dip"
+    android:textColor="#ffffff" />
+
+
+
+
+  <!-- Artist Name -->
+  <TextView
+    android:id="@+id/artist"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/songTitle"
+    android:textColor="#343434"
+    android:textSize="10dip"
+    android:layout_marginTop="1dip"
+    android:layout_toRightOf="@+id/thumbnail"
+    android:text="Just gona stand there and ..." />
+
+
+</RelativeLayout>

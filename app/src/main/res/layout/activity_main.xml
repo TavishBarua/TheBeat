@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/activity_main"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:paddingTop="@dimen/activity_vertical_margin"
+  android:paddingBottom="@dimen/activity_vertical_margin"
+  android:paddingLeft="@dimen/activity_horizontal_margin"
+  android:paddingRight="@dimen/activity_horizontal_margin"
+  android:background="@drawable/background_view2">
+
+
+
+    <RelativeLayout
+      android:id="@+id/relative1"
+      android:orientation="horizontal"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content">
+
+      <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/menu_down1"
+        android:background="@null"
+        android:scaleType="fitXY"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/imageButton" />
+
+
+      <ImageButton
+        android:id="@+id/settings"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/menu_settings"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@null"
+        android:scaleType="fitXY" />
+
+           </RelativeLayout>
+
+
+  <RelativeLayout
+    android:id="@+id/relative2"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_below="@+id/relative1"
+    android:layout_centerHorizontal="true">
+
+    <TextView
+      android:id="@+id/songTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:textColor="#04b3d2"
+      android:textSize="16dp"
+      android:paddingLeft="10dp"
+      android:textStyle="bold"
+      android:text="The Good, The Bad And The Ugly"
+      android:layout_marginTop="10dp"/>
+
+    <com.teenagerslab.thebeat.shapes.RoundedImageView
+      android:id="@+id/imageView_round"
+      android:layout_width="300dp"
+      android:layout_height="300dp"
+      android:layout_below="@+id/songTitle"
+      android:layout_marginTop="2dp"
+      android:src="@drawable/default_img"
+      android:scaleType="fitXY" />
+
+  </RelativeLayout>
+
+  <RelativeLayout
+    android:id="@+id/relative3"
+    android:layout_below="@+id/relative2"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp">
+    <!-- Current Duration Label -->
+    <TextView
+      android:id="@+id/songCurrentDurationLabel"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="left"
+      android:textColor="#eeeeee"
+      android:textStyle="bold"/>
+    <!-- Total Duration Label -->
+    <TextView
+      android:id="@+id/songTotalDurationLabel"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="right"
+      android:textColor="#04cbde"
+      android:textStyle="bold"/>
+  </RelativeLayout>
+
+  <RelativeLayout
+    android:id="@+id/relative4"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_below="@id/relative3"
+    android:layout_marginTop="2dp">
+
+
+    <SeekBar
+      android:id="@+id/nowPlayingSeekBar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:progress="0"
+      android:paddingTop="10dp"
+      android:paddingBottom="10dp"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+
+      android:thumb="@drawable/transparent_drawable"
+      android:indeterminate="false" />
+
+    <ImageButton
+      android:id="@+id/btnPlay"
+      android:src="@drawable/btn_play"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/nowPlayingSeekBar"
+      android:layout_centerHorizontal="true"
+      android:background="@null"/>
+
+  </RelativeLayout>
+
+</RelativeLayout>

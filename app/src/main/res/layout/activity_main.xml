@@ -4,19 +4,30 @@
   android:id="@+id/activity_main"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:paddingTop="@dimen/activity_vertical_margin"
-  android:paddingBottom="@dimen/activity_vertical_margin"
-  android:paddingLeft="@dimen/activity_horizontal_margin"
-  android:paddingRight="@dimen/activity_horizontal_margin"
-  android:background="@drawable/background_view2">
 
+  >
 
+  <RelativeLayout
+    android:id="@+id/relative0"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="1.2"
+    android:background="@drawable/main_menubackground"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentStart="true">
 
     <RelativeLayout
       android:id="@+id/relative1"
       android:orientation="horizontal"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+      android:layout_weight="10"
+      >
 
       <ImageButton
         android:layout_width="30dp"
@@ -26,7 +37,29 @@
         android:scaleType="fitXY"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
+        android:layout_weight="1"
         android:id="@+id/imageButton" />
+
+      <com.teenagerslab.thebeat.CustomFont.TextAlegreyaSansLight
+        android:id="@+id/songName"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:textAllCaps="true"
+        android:ellipsize="marquee"
+        android:layout_weight="9"
+        android:layout_centerHorizontal="true"
+        android:textColor="#d2d1d1"
+        android:singleLine="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:focusable="true"
+        android:gravity="center"
+        android:scrollHorizontally="true"
+        android:focusableInTouchMode="true"
+        android:textSize="18dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textStyle="bold"
+        android:text="The Good,the Bad and the Ugly " />
 
 
       <ImageButton
@@ -34,12 +67,13 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:src="@drawable/menu_settings"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+        android:layout_weight="1"
         android:background="@null"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
-           </RelativeLayout>
+    </RelativeLayout>
 
 
   <RelativeLayout
@@ -51,23 +85,12 @@
     android:layout_below="@+id/relative1"
     android:layout_centerHorizontal="true">
 
-    <TextView
-      android:id="@+id/songTitle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:textColor="#04b3d2"
-      android:textSize="16dp"
-      android:paddingLeft="10dp"
-      android:textStyle="bold"
-      android:text="The Good, The Bad And The Ugly"
-      android:layout_marginTop="10dp"/>
+
 
     <com.teenagerslab.thebeat.shapes.RoundedImageView
       android:id="@+id/imageView_round"
       android:layout_width="300dp"
       android:layout_height="300dp"
-      android:layout_below="@+id/songTitle"
       android:layout_marginTop="2dp"
       android:src="@drawable/default_img"
       android:scaleType="fitXY" />
@@ -84,57 +107,91 @@
     android:layout_marginBottom="10dp"
     android:layout_marginTop="10dp">
     <!-- Current Duration Label -->
-    <TextView
+    <com.teenagerslab.thebeat.CustomFont.TextLatoThin
       android:id="@+id/songCurrentDurationLabel"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_weight="1"
       android:gravity="left"
-      android:textColor="#eeeeee"
-      android:textStyle="bold"/>
+      android:textColor="#eeeeee" />
     <!-- Total Duration Label -->
-    <TextView
+    <com.teenagerslab.thebeat.CustomFont.TextLatoThin
       android:id="@+id/songTotalDurationLabel"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_weight="1"
       android:gravity="right"
-      android:textColor="#04cbde"
-      android:textStyle="bold"/>
+      android:textColor="#eeeeee" />
   </RelativeLayout>
 
-  <RelativeLayout
-    android:id="@+id/relative4"
-    android:orientation="horizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:layout_below="@id/relative3"
-    android:layout_marginTop="2dp">
-
-
-    <SeekBar
-      android:id="@+id/nowPlayingSeekBar"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentTop="true"
-      android:progress="0"
-      android:paddingTop="10dp"
-      android:paddingBottom="10dp"
-      android:layout_marginLeft="10dp"
-      android:layout_marginRight="10dp"
-
-      android:thumb="@drawable/transparent_drawable"
-      android:indeterminate="false" />
-
-    <ImageButton
-      android:id="@+id/btnPlay"
-      android:src="@drawable/btn_play"
+        <RelativeLayout
+      android:id="@+id/relative4"
+      android:orientation="horizontal"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/nowPlayingSeekBar"
+      android:layout_below="@+id/relative3"
+      android:layout_alignParentStart="true">
+
+
+          <SeekBar
+            android:id="@+id/seekBar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:progressDrawable="@drawable/seekbar_progress"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:minHeight="2dip"
+            android:maxHeight="2dip"
+            android:thumb="@drawable/seekbar_thumb"
+            android:indeterminate="false" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+      android:id="@+id/relative5"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
       android:layout_centerHorizontal="true"
-      android:background="@null"/>
+      android:orientation="horizontal"
+      android:layout_below="@id/relative4"
+      android:gravity="center_vertical"
+      android:layout_marginTop="3dp"
+      >
+
+      <ImageButton
+        android:id="@+id/btnPrev"
+        android:src="@drawable/btn_prev"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@null"
+        android:scaleType="fitXY"/>
+
+      <ImageButton
+        android:id="@+id/btnPlay"
+        android:src="@drawable/btn_play"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_centerHorizontal="true"
+        android:scaleType="fitXY"
+        android:background="@null"/>
+
+
+      <ImageButton
+        android:id="@+id/btnNext"
+        android:src="@drawable/btn_next"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:background="@null"
+        android:scaleType="fitXY"
+        />
+
+    </LinearLayout>
+
+
+
 
   </RelativeLayout>
 

@@ -7,6 +7,8 @@ import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.text.TextUtils.TruncateAt;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -23,13 +25,15 @@ import java.util.HashMap;
 public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 
   private ImageButton btnPlay;
+  private ImageButton btnPrev;
+  private ImageButton btnNext;
   private ImageView imageViewRound;
   Handler seekHandler = new Handler();
   private MediaPlayer mp;
   private songAdapter songAdapter;
   private TextView songCurrentDurationLabel;
   private TextView songTotalDurationLabel;
-  private TextView songTitleLabel;
+  private TextView songNameLabel;
   private Utilities utils;
   private SeekBar seek_bar;
   private ImageButton btnPlaylist;
@@ -73,6 +77,10 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     songsList = songAdapter.getPlayList(this);
 
 
+    songNameLabel.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+    songNameLabel.setMarqueeRepeatLimit(500);
+    songNameLabel.setSelected(true);
+
     playSong(0);
 
     btnPlay.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +106,39 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
       }
     });
 
+
+    btnNext.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View arg0) {
+        // check if next song is there or not
+        if(currentSongIndex < (songsList.size() - 1)){
+          playSong(currentSongIndex + 1);
+          currentSongIndex = currentSongIndex + 1;
+        }else{
+          // play first song
+          playSong(0);
+          currentSongIndex = 0;
+        }
+
+      }
+    });
+    btnPrev.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View arg0) {
+        if(currentSongIndex > 0){
+          playSong(currentSongIndex - 1);
+          currentSongIndex = currentSongIndex - 1;
+        }else{
+          // play last song
+          playSong(songsList.size() - 1);
+          currentSongIndex = songsList.size() - 1;
+        }
+
+      }
+    });
+
     btnPlaylist.setOnClickListener(new View.OnClickListener() {
 
       @Override
@@ -109,18 +150,22 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
 
 
+
+
+
   }
 
 
   public void getInit() {
-    seek_bar = (SeekBar) findViewById(R.id.nowPlayingSeekBar);
+    seek_bar = (SeekBar) findViewById(R.id.seekBar1);
    // player = MediaPlayer.create(this, R.raw.sample);
+    btnNext=(ImageButton) findViewById(R.id.btnNext);
+    btnPrev=(ImageButton) findViewById(R.id.btnPrev);
     imageViewRound = (ImageView) findViewById(R.id.imageView_round);
     btnPlay = (ImageButton) findViewById(R.id.btnPlay);
-    seek_bar = (SeekBar) findViewById(R.id.nowPlayingSeekBar);
     songCurrentDurationLabel = (TextView) findViewById(R.id.songCurrentDurationLabel);
     songTotalDurationLabel = (TextView) findViewById(R.id.songTotalDurationLabel);
-    songTitleLabel = (TextView) findViewById(R.id.songTitle);
+    songNameLabel = (TextView) findViewById(R.id.songName);
     btnPlaylist = (ImageButton) findViewById(R.id.settings);
     seek_bar.setOnSeekBarChangeListener(this);
    // seek_bar.setMax(player.getDuration());
@@ -147,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
       mp.start();
       // Displaying Song title
       String songTitle = songsList.get(songIndex).get("songTitle");
-      songTitleLabel.setText(songTitle);
+      songNameLabel.setText(songTitle);
 
       // Changing Button Image to pause image
       btnPlay.setImageResource(R.drawable.btn_pause);
@@ -167,6 +212,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     }
   }
 
+
+
+
   public void updateProgressBar() {
     seekHandler.postDelayed(run, 100);
   }
@@ -185,12 +233,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
       songCurrentDurationLabel.setText("" + utils.milliSecondsToTimer(currentDuration));
 
       // Updating progress bar
-      int progress = (int) (utils.getProgressPercentage(currentDuration, totalDuration));
-      Log.d("Progress", ""+progress);
+      int progress = (int)(utils.getProgressPercentage(currentDuration, totalDuration));
+      //Log.d("Progress", ""+progress);
       seek_bar.setProgress(progress);
       seekHandler.postDelayed(this, 100);
-
     }
+
   };
 
 
@@ -244,6 +292,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
   @Override
   protected void onDestroy() {
+    super.onDestroy();
+    seekHandler.removeCallbacks(run);
     mp.release();
   }
 }

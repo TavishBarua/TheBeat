@@ -32,16 +32,16 @@
 
 
   <!-- Title Of Song-->
-  <com.teenagerslab.thebeat.CustomFont.TextLatoReg
+  <com.teenagerslab.thebeat.CustomFont.TextAlegreyaSansLight
     android:id="@+id/songTitle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignTop="@+id/thumbnail"
     android:layout_toRightOf="@+id/thumbnail"
     android:text="Rihanna Love the way lie"
-    android:textColor="#ffffff"
+    android:textColor="#d2d1d1"
     android:singleLine="true"
-    android:textSize="15dip"
+    android:textSize="18dip"
     android:textStyle="normal"/>
 
 
@@ -54,6 +54,7 @@
     android:layout_below="@id/songTitle"
     android:text="5:45"
     android:layout_marginRight="5dip"
+    android:maxLines="1"
     android:textSize="12dip"
     android:textColor="#ffffff" />
 
@@ -63,10 +64,10 @@
   <!-- Artist Name -->
   <TextView
     android:id="@+id/artist"
-    android:layout_width="fill_parent"
+    android:layout_width="240dp"
     android:layout_height="wrap_content"
     android:layout_below="@id/songTitle"
-    android:textColor="#343434"
+    android:textColor="#c9c6c6"
     android:textSize="10dip"
     android:layout_marginTop="1dip"
     android:layout_toRightOf="@+id/thumbnail"

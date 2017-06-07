@@ -86,7 +86,7 @@ public class songAdapter {
         new String[] { MediaStore.Audio.Media.TITLE, MediaStore.Audio.Media.DATA,MediaStore.Audio.Media.MIME_TYPE,MediaStore.Audio.Media.ARTIST,MediaStore.Audio.Media.ALBUM,MediaStore.Audio.Media.DURATION }, null, null,
         "LOWER(" + MediaStore.Audio.Media.TITLE + ") ASC");
 
-    String songs_name = "";
+    String songs_title = "";
     String mAudioPath = "";
     String songs_artist = "";
     String songs_album = "";
@@ -98,7 +98,7 @@ public class songAdapter {
 
       String file_type = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.MIME_TYPE));
 
-      songs_name = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE));
+      songs_title = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE));
       mAudioPath = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA));
       songs_artist = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST));
       songs_album = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM));
@@ -128,7 +128,7 @@ public class songAdapter {
         song.put("songDuration", nothing);
       }
 
-      song.put("songTitle", songs_name);
+      song.put("songTitle", songs_title);
       song.put("songPath", mAudioPath);
       song.put("songArtist", songs_artist);
       song.put("songAlbum", songs_album);

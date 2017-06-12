@@ -4,6 +4,7 @@ import static com.teenagerslab.thebeat.R.id.duration;
 import static com.teenagerslab.thebeat.R.id.songTotalDurationLabel;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
@@ -18,6 +19,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.teenagerslab.thebeat.Adapter.songAdapter;
 import com.teenagerslab.thebeat.R;
 import com.teenagerslab.thebeat.Views.DurationView;
@@ -33,6 +35,9 @@ public class PlaylistActivity extends ListActivity{
   public ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
   TextView tx;
   private MediaPlayer mp1;
+  private ListView lv;
+  //public int len=0;
+
 
 
   @Override
@@ -45,6 +50,9 @@ public class PlaylistActivity extends ListActivity{
     songAdapter plm = new songAdapter(PlaylistActivity.this);
     // get all songs from sdcard
     this.songsList = plm.getPlayList(this);
+
+   // getSongLength();
+
 
 
     // looping through playlist
@@ -59,6 +67,7 @@ public class PlaylistActivity extends ListActivity{
 
 
 
+
       // Adding menuItems to ListView
     ListAdapter adapter = new SimpleAdapter(this, songsListData,
         R.layout.item_playlist, new String[] { "songTitle","songArtist","songDuration" }, new int[] {
@@ -67,7 +76,12 @@ public class PlaylistActivity extends ListActivity{
     setListAdapter(adapter);
 
     // selecting single ListView item
-    ListView lv = getListView();
+    lv = getListView();
+
+
+   int len=lv.getAdapter().getCount();
+
+   Toast.makeText(getApplicationContext(), "Total number of Items are:" + lv.getAdapter().getCount() , Toast.LENGTH_LONG).show();
     // listening to single listitem click
     lv.setOnItemClickListener(new OnItemClickListener() {
 
@@ -99,6 +113,12 @@ public class PlaylistActivity extends ListActivity{
 
     }
   };
+
+ /* public int getSongLength(){
+     len=lv.getCount();
+    return len;
+
+  } */
 
 
 }

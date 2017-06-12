@@ -32,7 +32,7 @@
 
 
   <!-- Title Of Song-->
-  <com.teenagerslab.thebeat.CustomFont.TextAlegreyaSansLight
+  <com.teenagerslab.thebeat.CustomMethods.TextAlegreyaSansLight
     android:id="@+id/songTitle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
 
 
   <!-- Rightend Duration -->
-  <com.teenagerslab.thebeat.CustomFont.TextLatoThin
+  <com.teenagerslab.thebeat.CustomMethods.TextLatoThin
     android:id="@+id/duration"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

@@ -14,5 +14,12 @@
   <color name="seekbar_grey_color">#CEAFAEAE</color>
   <color name="seekbar_default_color">#949492</color>
 
+  <color name="transparent_color_black">#252525</color>
+
+  <color name="indigo">#4B0082</color>
+  <color name="pink">#FF69B4</color>
+  <color name="d">#40000000</color>
+
+
 </resources>
 

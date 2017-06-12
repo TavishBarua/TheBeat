@@ -24,6 +24,7 @@
     </activity>
 
     <activity android:name=".Activity.PlaylistActivity"></activity>
+
   </application>
 
 </manifest>

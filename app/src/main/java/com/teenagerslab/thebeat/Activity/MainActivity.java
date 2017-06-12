@@ -3,46 +3,84 @@ package com.teenagerslab.thebeat.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.TextUtils.TruncateAt;
-import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
+import com.androidadvance.topsnackbar.TSnackbar;
+import com.rey.material.widget.SnackBar;
+
+import com.teenagerslab.thebeat.Adapter.CustomMenuAdapter;
 import com.teenagerslab.thebeat.Adapter.songAdapter;
+import com.teenagerslab.thebeat.CustomMethods.CustomMenu.SmartMenu;
+import com.teenagerslab.thebeat.CustomMethods.TextLatoThin;
 import com.teenagerslab.thebeat.Helpers.Utilities;
+import com.teenagerslab.thebeat.Interfaces.ItemEventListener;
 import com.teenagerslab.thebeat.R;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
-public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
+public class MainActivity extends AppCompatActivity implements OnCompletionListener,SeekBar.OnSeekBarChangeListener {
 
   private ImageButton btnPlay;
   private ImageButton btnPrev;
   private ImageButton btnNext;
+  private ImageButton btnRepeat;
+  private ImageButton btnShuffle;
   private ImageView imageViewRound;
   Handler seekHandler = new Handler();
   private MediaPlayer mp;
   private songAdapter songAdapter;
+  public PlaylistActivity songLength;
   private TextView songCurrentDurationLabel;
   private TextView songTotalDurationLabel;
   private TextView songNameLabel;
   private Utilities utils;
   private SeekBar seek_bar;
   private ImageButton btnPlaylist;
+  private TextLatoThin textLato;
+  SnackBar mSnackBar;
+  private ImageButton beatDropBoost;
+
+
+  private LinearLayout rooView;
+
+  private RelativeLayout activitymain_relativeLayout;
 
   private int currentSongIndex = 0;
+  //public int songLen=0;
+  private boolean isShuffle = false;
+  private boolean isRepeat = false;
+  private boolean isBeatBoost = false;
+  private boolean isRepeatAll = false;
+  //public static final int REPEAT_ALL = 2;
 
   static final String KEY_ARTIST = "artist";
   static final String KEY_SONG = "song";
   private static final int PERMISSION_REQUEST_CODE = 1;
+
+
+
+
+
 
 
 
@@ -61,8 +99,18 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
 
 
+   activitymain_relativeLayout = (RelativeLayout) findViewById(R.id.activity_main);
+
+
+   // mSnackBar = (SnackBar)findViewById(R.id.main_sn);
+
+
+
+
+
 
     Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.default_img);
+
 
    // imageViewRound.setImageBitmap(icon);
 
@@ -71,17 +119,31 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     mp = new MediaPlayer();
     songAdapter = new songAdapter(MainActivity.this);
     utils = new Utilities();
+    textLato = new TextLatoThin(this);
+    mSnackBar= new SnackBar(this);
+    //songLength = new PlaylistActivity();
+
 
     seek_bar.setOnSeekBarChangeListener(this);
+    mp.setOnCompletionListener(this);
+
 
     songsList = songAdapter.getPlayList(this);
 
 
+   // songlen();
+
+
     songNameLabel.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-    songNameLabel.setMarqueeRepeatLimit(500);
+    songNameLabel.setMarqueeRepeatLimit(1000);
     songNameLabel.setSelected(true);
 
     playSong(0);
+
+
+
+
+
 
     btnPlay.setOnClickListener(new View.OnClickListener() {
 
@@ -148,11 +210,232 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
       }
     });
 
+    btnRepeat.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View arg0) {
+        if(isRepeat) {
+          isRepeat = false;
+        //  Toast.makeText(getApplicationContext(), "Repeat is OFF", Toast.LENGTH_SHORT).show();
+          TSnackbar snackbar = TSnackbar
+              .make(activitymain_relativeLayout, "No-repeat selected", TSnackbar.LENGTH_LONG);
+          View snackbarView = snackbar.getView();
+          Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),
+              R.anim.alerter_slide_in_from_top);
+          snackbarView.startAnimation(animation);
+          snackbarView.setBackgroundColor(Color.parseColor("#252525"));
+          snackbarView.getBackground().setAlpha(110);
+          snackbar.setMaxWidth(2000);
+          TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+          textView.setTextColor(Color.WHITE);
+          textView.setGravity(Gravity.CENTER_HORIZONTAL);
+          Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Lato-Regular.ttf");
+          textView.setTypeface(font);
+          snackbar.show();
+         /* Alerter.create(MainActivity.this).setContentGravity(1)
+              .setText("No-repeat selected").hideIcon().setBackgroundColor(R.color.transparent_color_black)
+              .show(); */
+          btnRepeat.setImageResource(R.drawable.btn_repeat);
+        }
+
+
+        else{
+          // make repeat to true
+          isRepeat = true;
+         // Toast.makeText(getApplicationContext(), "Repeat is ON", Toast.LENGTH_SHORT).show();
+          // make shuffle to false
+
+          TSnackbar snackbar = TSnackbar
+              .make(activitymain_relativeLayout, "Repeat-one Selected", TSnackbar.LENGTH_LONG);
+          View snackbarView = snackbar.getView();
+          Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),
+              R.anim.alerter_slide_in_from_top);
+          snackbarView.startAnimation(animation);
+          snackbarView.setBackgroundColor(Color.parseColor("#252525"));
+          snackbarView.getBackground().setAlpha(110);
+          snackbar.setMaxWidth(2000);
+          TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+          textView.setTextColor(Color.WHITE);
+          textView.setGravity(Gravity.CENTER_HORIZONTAL);
+          Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Lato-Regular.ttf");
+          textView.setTypeface(font);
+          snackbar.show();
+
+          /*Alerter.create(MainActivity.this).setContentGravity(1)
+              .setText("Repeat-one Selected").hideIcon().setBackgroundColor(R.color.transparent_color_black)
+              .show(); */
+          isShuffle = false;
+          btnRepeat.setImageResource(R.drawable.btn_repeat_focused);
+          btnShuffle.setImageResource(R.drawable.btn_shuffle);
+        }
+      }
+    });
+
+    btnShuffle.setOnClickListener(new View.OnClickListener() {
+
+      @Override
+      public void onClick(View arg0) {
+        if(isShuffle){
+          isShuffle = false;
+        //  Toast.makeText(getApplicationContext(), "Shuffle is OFF", Toast.LENGTH_SHORT).show();
+
+         /* mSnackBar
+              .actionText(R.string.ShuffleOff)
+              .textColor(android.R.color.white)
+              .show(); */
+
+
+         /* Alerter.create(MainActivity.this).setContentGravity(1)
+              .setText("Shuffle OFF").hideIcon().setBackgroundColor(R.color.transparent_color_black)
+              .show(); */
+
+          TSnackbar snackbar = TSnackbar
+              .make(activitymain_relativeLayout, "Shuffle OFF", TSnackbar.LENGTH_LONG);
+          View snackbarView = snackbar.getView();
+          Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),
+              R.anim.alerter_slide_in_from_top);
+          snackbarView.startAnimation(animation);
+          snackbarView.setBackgroundColor(Color.parseColor("#252525"));
+          snackbarView.getBackground().setAlpha(110);
+          snackbar.setMaxWidth(2000);
+          TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+          textView.setTextColor(Color.WHITE);
+          textView.setGravity(Gravity.CENTER_HORIZONTAL);
+          Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Lato-Regular.ttf");
+          textView.setTypeface(font);
+          snackbar.show();
+
+          btnShuffle.setImageResource(R.drawable.btn_shuffle);
+          /*mSnackBar=SnackBar.make(context).applyStyle(R.style.SnackBarShuffleOff);
+          mSnackBar.singleLine(false).backgroundColor(Color.parseColor("#5A5A5A")).textColor(Color.parseColor("#ABABAB")).duration(5000);
+        */
+
+        //  initSnackBar(getBaseContext());
+
+
+         /* Snackbar mSnackBar = Snackbar.make(activitymain_relativeLayout, "Shuffle is OFF", Snackbar.LENGTH_LONG);
+          View view = mSnackBar.getView();
+          FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
+          params.gravity = Gravity.TOP;
+          view.setLayoutParams(params);
+          TextView mainTextView = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+// To Apply Custom Fonts for Message and Action
+          Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Lato-Thin.ttf");
+          mainTextView.setTypeface(font);
+          mSnackBar.show(); */
+         // mSnackBar.applyStyle(R.style.SnackBarShuffleOff);
+        //  mSnackBar.show();
+
+
+        }else{
+          // make repeat to true
+          isShuffle= true;
+         // Toast.makeText(getApplicationContext(), "Shuffle is ON", Toast.LENGTH_SHORT).show();
+          // make shuffle to false
+
+          /*Alerter.create(MainActivity.this).setContentGravity(1)
+              .setText("Shuffle ON").hideIcon().setBackgroundColor(R.color.transparent_color_black)
+              .show(); */
+
+          TSnackbar snackbar = TSnackbar
+              .make(activitymain_relativeLayout, "Shuffle ON", TSnackbar.LENGTH_LONG);
+          View snackbarView = snackbar.getView();
+          Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),
+              R.anim.alerter_slide_in_from_top);
+          snackbarView.startAnimation(animation);
+          snackbarView.setBackgroundColor(Color.parseColor("#252525"));
+          snackbarView.getBackground().setAlpha(110);
+          snackbar.setMaxWidth(2000);
+          TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+          textView.setTextColor(Color.WHITE);
+          textView.setGravity(Gravity.CENTER_HORIZONTAL);
+          Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Lato-Regular.ttf");
+          textView.setTypeface(font);
+          snackbar.show();
+          isRepeat = false;
+          btnShuffle.setImageResource(R.drawable.btn_shuffle_focused);
+          btnRepeat.setImageResource(R.drawable.btn_repeat);
+        }
+      }
+    });
+
+    SmartMenu smartMenu = (SmartMenu) findViewById(R.id.smart_menu);
+    final CustomMenuAdapter adapter = new CustomMenuAdapter();
+
+    adapter.setListener(new ItemEventListener() {
+      @Override
+      public void onEventNotify(View view, int position, Object... data) {
+        switch (position) {
+          case 0:
+           // toast("ALBUM");
+            Intent i = new Intent(getApplicationContext(), PlaylistActivity.class);
+            startActivityForResult(i, 100);
+            break;
+          case 1:
+            toast("COMMENT");
+            break;
+          case 2:
+            int[] img = adapter.getImages();
+            ImageView imag = (ImageView) view.findViewById(R.id.image_view);
+
+
+            if(isBeatBoost) {
+              isBeatBoost=false;
+
+              TSnackbar snackbar = TSnackbar
+                  .make(activitymain_relativeLayout, "BEATBOOST OFF", TSnackbar.LENGTH_LONG);
+              View snackbarView = snackbar.getView();
+              Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),
+                  R.anim.alerter_slide_in_from_top);
+              snackbarView.startAnimation(animation);
+              snackbarView.setBackgroundColor(Color.parseColor("#252525"));
+              snackbarView.getBackground().setAlpha(110);
+              snackbar.setMaxWidth(2000);
+              TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+              textView.setTextColor(Color.WHITE);
+              textView.setGravity(Gravity.CENTER_HORIZONTAL);
+              Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Lato-Regular.ttf");
+              textView.setTypeface(font);
+              snackbar.show();
+              imag.setImageResource(img[2]);
+            }
+            else{
+              isBeatBoost=true;
+
+              TSnackbar snackbar = TSnackbar
+                  .make(activitymain_relativeLayout, "BEATBOOST ON", TSnackbar.LENGTH_LONG);
+              View snackbarView = snackbar.getView();
+              Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),
+                  R.anim.alerter_slide_in_from_top);
+              snackbarView.startAnimation(animation);
+              snackbarView.setBackgroundColor(Color.parseColor("#252525"));
+              snackbarView.getBackground().setAlpha(110);
+              snackbar.setMaxWidth(2000);
+              TextView textView = (TextView) snackbarView.findViewById(com.androidadvance.topsnackbar.R.id.snackbar_text);
+              textView.setTextColor(Color.WHITE);
+              textView.setGravity(Gravity.CENTER_HORIZONTAL);
+              Typeface font = Typeface.createFromAsset(getAssets(), "fonts/Lato-Regular.ttf");
+              textView.setTypeface(font);
+              snackbar.show();
+              imag.setImageResource(img[4]);
+
+            }
+            break;
+          case 3:
+            toast("LIKE");
+            break;
+        }
+      }
+    });
+    smartMenu.setAdapter(adapter);
 
 
 
 
+  }
 
+  private void toast(String msg) {
+    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
   }
 
 
@@ -161,6 +444,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
    // player = MediaPlayer.create(this, R.raw.sample);
     btnNext=(ImageButton) findViewById(R.id.btnNext);
     btnPrev=(ImageButton) findViewById(R.id.btnPrev);
+    btnRepeat=(ImageButton) findViewById(R.id.btnRepeat);
+    btnShuffle=(ImageButton) findViewById(R.id.btnShuffle);
     imageViewRound = (ImageView) findViewById(R.id.imageView_round);
     btnPlay = (ImageButton) findViewById(R.id.btnPlay);
     songCurrentDurationLabel = (TextView) findViewById(R.id.songCurrentDurationLabel);
@@ -168,6 +453,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     songNameLabel = (TextView) findViewById(R.id.songName);
     btnPlaylist = (ImageButton) findViewById(R.id.settings);
     seek_bar.setOnSeekBarChangeListener(this);
+
+
    // seek_bar.setMax(player.getDuration());
 
 
@@ -215,6 +502,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
 
 
+
   public void updateProgressBar() {
     seekHandler.postDelayed(run, 100);
   }
@@ -240,6 +528,17 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     }
 
   };
+
+
+
+ /*public void songlen(){
+
+    songLen=songLength.getSongLength();
+
+    Toast.makeText(getApplicationContext(), "Total number of Items are:" + songLen , Toast.LENGTH_LONG).show();
+  } */
+
+
 
 
   /*private void requestPermission() {
@@ -288,6 +587,32 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     // update timer progress again
     updateProgressBar();
+  }
+
+
+
+
+  @Override
+  public void onCompletion(MediaPlayer mp) {
+    if(isRepeat){
+      // repeat is on play same song again
+      playSong(currentSongIndex);
+    } else if(isShuffle){
+      // shuffle is on - play a random song
+      Random rand = new Random();
+      currentSongIndex = rand.nextInt((songsList.size() - 1) - 0 + 1) + 0;
+      playSong(currentSongIndex);
+    } else{
+      // no repeat or shuffle ON - play next song
+      if(currentSongIndex < (songsList.size() - 1)){
+        playSong(currentSongIndex + 1);
+        currentSongIndex = currentSongIndex + 1;
+      }else{
+        // play first song
+        playSong(0);
+        currentSongIndex = 0;
+      }
+    }
   }
 
   @Override

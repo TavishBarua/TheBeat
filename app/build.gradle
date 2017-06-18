@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "24.0.3"
+    buildToolsVersion '25.0.2'
     defaultConfig {
         applicationId "com.teenagerslab.thebeat"
         minSdkVersion 17
@@ -35,10 +35,19 @@ allprojects {
         androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
             exclude group: 'com.android.support', module: 'support-annotations'
         })
-        compile 'com.android.support:appcompat-v7:25.1.0'
+        compile 'com.android.support:appcompat-v7:25.3.1'
+        compile 'com.android.support:animated-vector-drawable:25.3.1'
+        compile 'com.android.support:customtabs:25.3.1'
         compile 'com.android.support:design:25.4.0'
+        compile 'com.android.support:palette-v7:25.1.0'
         compile 'com.github.rey5137:material:1.2.4' //to be deleted
         compile 'com.androidadvance:topsnackbar:1.1.1'
+
+        compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
+        compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
+        compile 'nl.psdcompany:duo-navigation-drawer:2.0.5'
+
+
 
 
 

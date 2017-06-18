@@ -25,6 +25,7 @@
 
     <activity android:name=".Activity.PlaylistActivity"></activity>
 
+    <activity android:name=".Activity.BeatDropMusicLibrary"></activity>
   </application>
 
 </manifest>

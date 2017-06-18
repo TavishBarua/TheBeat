@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -145,6 +144,8 @@ public class MainActivity extends AppCompatActivity implements OnCompletionListe
 
 
 
+
+
     btnPlay.setOnClickListener(new View.OnClickListener() {
 
       @Override
@@ -202,10 +203,9 @@ public class MainActivity extends AppCompatActivity implements OnCompletionListe
     });
 
     btnPlaylist.setOnClickListener(new View.OnClickListener() {
-
       @Override
       public void onClick(View arg0) {
-        Intent i = new Intent(getApplicationContext(), PlaylistActivity.class);
+        Intent i = new Intent(getApplicationContext(), BeatDropMusicLibrary.class);
         startActivityForResult(i, 100);
       }
     });
@@ -383,7 +383,7 @@ public class MainActivity extends AppCompatActivity implements OnCompletionListe
               isBeatBoost=false;
 
               TSnackbar snackbar = TSnackbar
-                  .make(activitymain_relativeLayout, "BEATBOOST OFF", TSnackbar.LENGTH_LONG);
+                  .make(activitymain_relativeLayout, "BEATBOOST Deactivated", TSnackbar.LENGTH_LONG);
               View snackbarView = snackbar.getView();
               Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),
                   R.anim.alerter_slide_in_from_top);
@@ -403,7 +403,7 @@ public class MainActivity extends AppCompatActivity implements OnCompletionListe
               isBeatBoost=true;
 
               TSnackbar snackbar = TSnackbar
-                  .make(activitymain_relativeLayout, "BEATBOOST ON", TSnackbar.LENGTH_LONG);
+                  .make(activitymain_relativeLayout, "BEATBOOST Activated", TSnackbar.LENGTH_LONG);
               View snackbarView = snackbar.getView();
               Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),
                   R.anim.alerter_slide_in_from_top);

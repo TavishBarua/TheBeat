@@ -18,7 +18,18 @@
 
   <color name="indigo">#4B0082</color>
   <color name="pink">#FF69B4</color>
-  <color name="d">#40000000</color>
+  <color name="tab_color_text">#77dcd1d1</color>
+
+
+  <!-- Transparent -->
+  <color name="transparent">#00000000</color>
+
+  <!-- A transparent black -->
+  <color name="transparent_black">#aa000000</color>
+
+  <color name="medium_text_enabled">#FF000000</color>
+  <color name="medium_text_disabled">#4D000000</color>
+
 
 
 </resources>

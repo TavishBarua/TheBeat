@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
   <declare-styleable name="TextLatoThin">
     <attr name="titleText" format="string" localization="suggested" />
     <attr name="valueColor" format="color" />
   </declare-styleable>
 
   <!--Custom Menu-->
+    <attr name="src" format="reference" />
+    <attr name="cutType" format="enum">
+        <enum name="linePositive" value="0" />
+        <enum name="lineNegative" value="1" />
+        <enum name="arc" value="2" />
+        <enum name="wave" value="3" />
+    </attr>
+    <attr name="cutHeight" format="dimension" />
+    <attr name="cutCount" format="integer" />
+
+    <attr name="autoTint" format="boolean" />
+    <attr name="tintColor" format="color" />
+    <attr name="tintAlpha" format="integer" />
+
+    <attr name="titleTxt" format="string" />
+    <attr name="titleTextColor" format="color" />
+    <attr name="titleTextSize" format="dimension" />
+    <attr name="subTitleText" format="string" />
+    <attr name="subTitleTextColor" format="color" />
+    <attr name="subTitleTextSize" format="dimension" />
+    <attr name="textMargin" format="dimension" />
+    <attr name="lineSpacing" format="dimension" />
+
+    <attr name="openFactor" format="float"/>
+
+
+
 
     <declare-styleable name="SmartMenu">
       <attr name="inner_padding" format="dimension" />
@@ -18,5 +46,31 @@
       <attr name="bg_color" format="color|reference" />
       <attr name="shadow_color" format="color|reference" />
     </declare-styleable>
+
+  <declare-styleable name="TavishImageView">
+
+    <attr name="src" />
+
+    <attr name="cutType" />
+    <attr name="cutHeight" />
+    <attr name="cutCount" />
+
+    <attr name="autoTint" />
+    <attr name="tintColor" />
+    <attr name="tintAlpha" />
+
+    <attr name="titleTxt" />
+    <attr name="titleTextColor" />
+    <attr name="titleTextSize" />
+    <attr name="subTitleText" />
+    <attr name="subTitleTextColor" />
+    <attr name="subTitleTextSize" />
+    <attr name="textMargin" />
+    <attr name="lineSpacing" />
+
+    <attr name="openFactor" />
+
+  </declare-styleable>
+
 
 </resources>

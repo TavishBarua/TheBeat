@@ -9,6 +9,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.Media;
+import android.provider.MediaStore.Images;
 import android.text.format.DateUtils;
 import java.io.File;
 import java.io.FilenameFilter;
@@ -23,7 +24,7 @@ public class songAdapter {
   long myNum = 0;
   private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
   Cursor cursor;
-  Context context;
+  private Context context;
   // Constructor
   public songAdapter(Context context){
     this.context = context;

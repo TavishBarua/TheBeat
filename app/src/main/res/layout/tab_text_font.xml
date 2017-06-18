@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <com.teenagerslab.thebeat.CustomMethods.TextLatoThin
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tab_text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:textAllCaps="true"
+        android:textColor="#d2d1d1"
+        android:textSize="14sp"
+        >
+
+    </com.teenagerslab.thebeat.CustomMethods.TextLatoThin>
+

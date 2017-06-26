@@ -2,14 +2,17 @@ package com.teenagerslab.thebeat.Activity;
 
 
 import android.os.Bundle;
-import android.provider.MediaStore;
+
 import android.support.v4.view.ViewPager;
+
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+
 import com.teenagerslab.thebeat.Fragments.AlbumsFragment;
 import com.teenagerslab.thebeat.Fragments.ArtistsFragment;
 import com.teenagerslab.thebeat.Fragments.GenresFragment;
@@ -19,11 +22,17 @@ import com.teenagerslab.thebeat.Fragments.SongsFragment;
 import com.teenagerslab.thebeat.R;
 
 
+
+
 /**
  * Created by tavish on 6/14/2017.
  */
 
 public class BeatDropMusicLibrary extends AppCompatActivity {
+
+
+    private Toolbar mToolbar;
+
 
 
     @Override
@@ -33,7 +42,12 @@ public class BeatDropMusicLibrary extends AppCompatActivity {
         //        WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.beatdrop_music_library);
 
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+
+
+       FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
                 .add(R.string.demo_beatdrop_tab_artists, ArtistsFragment.class)
                 .add(R.string.demo_beatdrop_tab_playlists, PlaylistsFragment.class)
@@ -52,7 +66,9 @@ public class BeatDropMusicLibrary extends AppCompatActivity {
 
 
 
+
     }
+
 
 
 

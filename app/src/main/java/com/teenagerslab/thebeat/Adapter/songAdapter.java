@@ -5,14 +5,26 @@ package com.teenagerslab.thebeat.Adapter;
  */
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.Media;
 import android.provider.MediaStore.Images;
 import android.text.format.DateUtils;
+import android.util.Log;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -92,6 +104,7 @@ public class songAdapter {
     String songs_artist = "";
     String songs_album = "";
     String songs_duration = "";
+   // String album_art="";
 
 
     if (mCursor.moveToFirst()) {
@@ -104,6 +117,7 @@ public class songAdapter {
       songs_artist = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST));
       songs_album = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM));
       songs_duration = mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION));
+    // album_art=mCursor.getString(mCursor.getColumnIndexOrThrow(MediaStore.Audio.Albums.ALBUM_ART));
       HashMap<String, String> song = new HashMap<String, String>();
 
 
@@ -133,10 +147,13 @@ public class songAdapter {
       song.put("songPath", mAudioPath);
       song.put("songArtist", songs_artist);
       song.put("songAlbum", songs_album);
+   //  song.put("albumArt", album_art);
 
       songsList.add(song);
 
     } while (mCursor.moveToNext());
+
+
   }
 
   mCursor.close(); //cursor has been consumed so close it
@@ -144,7 +161,8 @@ public class songAdapter {
 }
 
 
-  /**
+
+     /**
    * Function to read all mp3 files from sdcard
    * and store the details in ArrayList
    * */

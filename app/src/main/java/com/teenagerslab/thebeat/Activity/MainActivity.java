@@ -5,9 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -29,13 +31,18 @@ import com.teenagerslab.thebeat.Adapter.CustomMenuAdapter;
 import com.teenagerslab.thebeat.Adapter.songAdapter;
 import com.teenagerslab.thebeat.CustomMethods.CustomMenu.SmartMenu;
 import com.teenagerslab.thebeat.CustomMethods.TextLatoThin;
+import com.teenagerslab.thebeat.Helpers.RetrieveImageTask;
 import com.teenagerslab.thebeat.Helpers.Utilities;
 import com.teenagerslab.thebeat.Interfaces.ItemEventListener;
 import com.teenagerslab.thebeat.R;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
+
+import io.habets.lastfmfetcher.Artist;
+import io.habets.lastfmfetcher.LastFM;
 
 public class MainActivity extends AppCompatActivity implements OnCompletionListener,SeekBar.OnSeekBarChangeListener {
 
@@ -83,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements OnCompletionListe
 
 
 
+
+
   private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
 
   @Override
@@ -98,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements OnCompletionListe
 
 
 
+
    activitymain_relativeLayout = (RelativeLayout) findViewById(R.id.activity_main);
 
 
@@ -108,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements OnCompletionListe
 
 
 
-    Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.default_img);
+  //  Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.default_img);
 
 
    // imageViewRound.setImageBitmap(icon);
@@ -120,6 +130,9 @@ public class MainActivity extends AppCompatActivity implements OnCompletionListe
     utils = new Utilities();
     textLato = new TextLatoThin(this);
     mSnackBar= new SnackBar(this);
+
+
+
     //songLength = new PlaylistActivity();
 
 
@@ -136,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements OnCompletionListe
     songNameLabel.setEllipsize(TextUtils.TruncateAt.MARQUEE);
     songNameLabel.setMarqueeRepeatLimit(1000);
     songNameLabel.setSelected(true);
+
 
     playSong(0);
 
@@ -167,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements OnCompletionListe
         }
 
       }
+
     });
 
 
@@ -470,8 +485,24 @@ public class MainActivity extends AppCompatActivity implements OnCompletionListe
     }
   }
 
+ /* public void showAlbumArt(int index){
+    try {
+
+     String AlbumArt = songsList.get(index).get("albumArt");
+      Drawable img = Drawable.createFromPath(AlbumArt);
+      imageViewRound.setImageDrawable(img);
+
+    }catch (IllegalArgumentException e) {
+      e.printStackTrace();
+    } catch (IllegalStateException e) {
+      e.printStackTrace();
+    }
+  } */
+
   public void  playSong(int songIndex){
     // Play song
+
+
     try {
       mp.reset();
       mp.setDataSource(songsList.get(songIndex).get("songPath"));
@@ -483,6 +514,12 @@ public class MainActivity extends AppCompatActivity implements OnCompletionListe
 
       // Changing Button Image to pause image
       btnPlay.setImageResource(R.drawable.btn_pause);
+
+
+
+
+
+     // showAlbumArt(songIndex);
 
       // set Progress bar values
       seek_bar.setProgress(0);
@@ -497,7 +534,14 @@ public class MainActivity extends AppCompatActivity implements OnCompletionListe
     } catch (IOException e) {
       e.printStackTrace();
     }
+
+
+
   }
+
+
+
+
 
 
 

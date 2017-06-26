@@ -88,13 +88,25 @@
 
 
 
-    <com.teenagerslab.thebeat.shapes.RoundedImageView
+   <com.teenagerslab.thebeat.shapes.RoundedImageView
       android:id="@+id/imageView_round"
       android:layout_width="300dp"
-      android:layout_height="300dp"
-      android:layout_marginTop="2dp"
-      android:src="@drawable/default_img"
-      android:scaleType="fitXY" />
+       android:layout_height="300dp"
+       android:layout_gravity="center"
+      android:layout_marginTop="5dp"
+       android:layout_marginBottom="7dp"
+      android:src="@drawable/flower"
+       />
+
+   <!-- <com.teenagerslab.thebeat.shapes.CircularMusicProgressBar
+        android:id="@+id/imageView_round"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/flower"
+         /> -->
 
   </RelativeLayout>
 
